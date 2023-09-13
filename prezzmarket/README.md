@@ -1,4 +1,4 @@
-## Tugas 2 PBP Ganjil 
+![bagan](https://github.com/prasetyoadii/prezzmarket/assets/125488022/f20c00c2-50b2-498c-be5c-fb762775ab0e)## Tugas 2 PBP Ganjil 
 # Prasetyo Adi Wijonarko, PBP E
 
 Checklist untuk tugas ini adalah sebagai berikut.
@@ -92,7 +92,7 @@ Checklist untuk tugas ini adalah sebagai berikut.
 7. Centang ```HTTP Listener on PORT``` dan tekan ```Deploy App``` untuk memulai proses deployment aplikasi
 
 ## Buatlah bagan yang berisi request client ke web aplikasi berbasis Django beserta responnya dan jelaskan pada bagan tersebut kaitan antara ```urls.py```, ```views.py```, ```models.py```, dan berkas ```html```.
-
+![bagan](https://github.com/prasetyoadii/prezzmarket/assets/125488022/a9d1fc82-8481-4d9e-b747-d766722a3a59)
 1. `urls.py` digunakan untuk mengelola routing yang dikirim oleh klien. Django akan mencocokkan URL yang diterima dengan pola URL yang telah didefinisikan dalam `urls.py`, jika cocok akan disematkan pada *template* `HTML`
 2. Setelah didefinisikan, `views.py` akan menentukan bagaimana aplikasi akan berlaku. `views.py` mengelola permintaan, mengambil data dari model,melakukan pemrosesan data, kemudian menyiapkan data untuk nantinya ditampilkan ke klien
 3. `models.py` berisi definisi model yang merepresentasikan struktur dan hubungan data dalam database. Digunakan untuk berinteraksi dengan database.
@@ -155,7 +155,6 @@ MVVM atau Model-View-ViewModel, adalah pola arsitektur yang umumnya digunakan da
   - Memaparkan aliran data yang relevan dengan tampilan (View).
   - Berfungsi sebagai penghubung antara Model dan View.
   - Terdiri dari Model yang diubah menjadi View, dan berisi perintah yang dapat digunakan oleh View untuk mempengaruhi Model.
--
 - **Perbedaan dari MVC (Model-View-Controller):** Dalam MVC, peran *ViewModel* digantikan oleh *controller* yang bertindak sebagai penghubung antara *view* dan *model*.
 - **Perbedaan dari MVT (Model-View-Template):** Dalam MVT, peran yang biasanya dimiliki oleh *ViewModel* digantikan oleh *template*. *Template* berperan dalam menyusun tampilan antarmuka pengguna
 
