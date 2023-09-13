@@ -1,4 +1,4 @@
-![bagan](https://github.com/prasetyoadii/prezzmarket/assets/125488022/f20c00c2-50b2-498c-be5c-fb762775ab0e)## Tugas 2 PBP Ganjil 
+## Tugas 2 PBP Ganjil 
 # Prasetyo Adi Wijonarko, PBP E
 
 Checklist untuk tugas ini adalah sebagai berikut.
