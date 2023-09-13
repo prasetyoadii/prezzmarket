@@ -44,7 +44,8 @@ Checklist untuk tugas ini adalah sebagai berikut.
 **Melakukan routing pada proyek agar dapat menjalankan aplikasi main**
 1. Buat berkas baru bernama ```urls.py``` pada direktori ```main``` dan menambahkan 
    ```
-   from django.urls import path 
+   from django.urls import path
+   
    from main.views import show_main
    app_name = 'main'
    urlpatterns = [path('', show_main, name='show_main'),]
@@ -54,6 +55,7 @@ Checklist untuk tugas ini adalah sebagai berikut.
 2. Isi dengan kode sebagai berikut 
    ```
    from django.db import models
+   
    class Product(models.Model):
    name = models.CharField(max_length=255)
    amount = models.IntegerField()
