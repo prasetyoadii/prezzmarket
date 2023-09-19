@@ -333,7 +333,6 @@ kode ini digunakan untuk membuat struktur form yang menerima data produk baru
 
 </details>
 
-## Tugas 2 PBP Ganjil 
 <details>
 <summary>Tugas 2</summary>
 <br>
