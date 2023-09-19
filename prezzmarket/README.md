@@ -3,7 +3,6 @@
 ## 📖**ASSIGNMENTS PBP**📖
 <details>
 <summary>Tugas 3</summary>
-# Tugas 3 Pemrograman Berbasis Platform
 <br>
 <hr>
 
@@ -57,126 +56,127 @@ Checklist untuk tugas ini adalah sebagai berikut.
    kode tersebut berguna untuk mendeteksi `base.html` sebagai berkas template
  * buka berkas `main.html` yang ada pada `templates` direktori `main`, ubah kodenya menjadi seperti berikut 
    ```
-{% extends 'base.html' %}
+   {% extends 'base.html' %}
 
-{% block content %}
-    <html>
-    <head>
-    </head>
-    <body>
-    <h1>Selamat datang di Prezzmarket</h1>
+   {% block content %}
+      <html>
+      <head>
+      </head>
+      <body>
+      <h1>Selamat datang di Prezzmarket</h1>
 
-    <p><strong>Nama:</strong> {{ name }}</p>
-    <p><strong>Kelas:</strong> {{ class }}
-{% endblock content %}
-kode tersebut menggunakan `base.html` sebagai template utama
+      <p><strong>Nama:</strong> {{ name }}</p>
+      <p><strong>Kelas:</strong> {{ class }}
+   {% endblock content %}
+
+   kode tersebut menggunakan `base.html` sebagai template utama
 
 2. Setelah membaut kerangka, kita membuat form input data  
 * buat berkas `forms.py` pada direktori main. tambahkan kode berikut
    ```
-from django.forms import ModelForm
-from main.models import Item
+   from django.forms import ModelForm
+   from main.models import Item
 
-class ItemForm(ModelForm):
-    class Meta:
-        model = Item
-        fields = ["name", "amount", "description"]
+   class ItemForm(ModelForm):
+      class Meta:
+         model = Item
+         fields = ["name", "amount", "description"]
 
 kode ini digunakan untuk membuat struktur form yang menerima data produk baru
  * buka berkas `views.py` yang ada pada foler `main` tambahkan import sebagai berikut
    ```
-from django.http import HttpResponseRedirect
-from main.forms import ItemForm
-from django.urls import reverse
+   from django.http import HttpResponseRedirect
+   from main.forms import ItemForm
+   from django.urls import reverse
 
  * dalam berkas yang sama, buat fungsi `create_item` yang menerima parameter `request` untuk menghasilkan form yang dapat menambahkan data secara otomatis.  berikut kodenya
    ```
-def create_item(request):
-    form = ItemForm(request.POST or None)
+   def create_item(request):
+      form = ItemForm(request.POST or None)
 
-    if form.is_valid() and request.method == "POST":
-        form.save()
-        return HttpResponseRedirect(reverse('main:show_main'))
+      if form.is_valid() and request.method == "POST":
+         form.save()
+         return HttpResponseRedirect(reverse('main:show_main'))
 
-    context = {'form': form}
-    return render(request, "create_item.html", context)
+      context = {'form': form}
+      return render(request, "create_item.html", context)
 
  * ubah fungsi `show main` yang sudah ada menjadi berikut 
    ```
-def show_main(request):
-    items = Item.objects.all()
+   def show_main(request):
+      items = Item.objects.all()
 
-    context = {
-        'name': 'Prasetyo Adi Wijonarko', # Nama kamu
-        'class': 'PBP E', # Kelas PBP kamu
-        'items': items
-    }
+      context = {
+         'name': 'Prasetyo Adi Wijonarko', # Nama kamu
+         'class': 'PBP E', # Kelas PBP kamu
+         'items': items
+      }
 
-    return render(request, "main.html", context)
+      return render(request, "main.html", context)
 
  * buka `urls.py` pada folder `main` dan tambahkan import 
    ```
-from main.views import show_main, create_product
+   from main.views import show_main, create_product
 
  * pada cariabel `urlpatterns` dalam berkas `urls.py` tambahkan 
    ```
-    path('create-item', create_item, name='create_item'),
+   path('create-item', create_item, name='create_item'),
 
  * buat berkas baru `create_product.html` pada `templates` dalam direktori `main`. tambahkan kode berikut
    ```
-{% extends 'base.html' %} 
+   {% extends 'base.html' %} 
 
-{% block content %}
-<h1>Add New Product</h1>
+   {% block content %}
+   <h1>Add New Product</h1>
 
-<form method="POST">
-    {% csrf_token %}
-    <table>
-        {{ form.as_table }}
-        <tr>
-            <td></td>
-            <td>
-                <input type="submit" value="Add Item"/>
-            </td>
-        </tr>
-    </table>
-</form>
+   <form method="POST">
+      {% csrf_token %}
+      <table>
+         {{ form.as_table }}
+         <tr>
+               <td></td>
+               <td>
+                  <input type="submit" value="Add Item"/>
+               </td>
+         </tr>
+      </table>
+   </form>
 
-{% endblock %}
+   {% endblock %}
 
  * buka kembali `main.html`, dalam block `{% block content %} tambahkan kode berikut untuk menampilkan data dalam bentuk table serta tombol "Add New Product"
    ```
-...
-<table>
-    <h4>Anda menyimpan {{ items.count }} item disini</h4>
-    <tr>
-        <th>Name</th>
-        <th>Price</th>
-        <th>Description</th>
-        <th>Date Added</th>
-    </tr>
+   ...
+   <table>
+      <h4>Anda menyimpan {{ items.count }} item disini</h4>
+      <tr>
+         <th>Name</th>
+         <th>Price</th>
+         <th>Description</th>
+         <th>Date Added</th>
+      </tr>
 
-    {% comment %} Berikut cara memperlihatkan data produk di bawah baris ini {% endcomment %}
+      {% comment %} Berikut cara memperlihatkan data produk di bawah baris ini {% endcomment %}
 
-    {% for item in items %}
-            <tr>
-                <td>{{item.name}}</td>
-                <td>{{item.amount}}</td>
-                <td>{{item.description}}</td>
-                <td>{{item.date_added}}</td>
-            </tr>
-        {% endfor %}
-    </table>
+      {% for item in items %}
+               <tr>
+                  <td>{{item.name}}</td>
+                  <td>{{item.amount}}</td>
+                  <td>{{item.description}}</td>
+                  <td>{{item.date_added}}</td>
+               </tr>
+         {% endfor %}
+      </table>
 
-    <br />
+      <br />
 
-    <a href="{% url 'main:create_item' %}">
-        <button>
-            Add New Item
-        </button>
-    </a>
+      <a href="{% url 'main:create_item' %}">
+         <button>
+               Add New Item
+         </button>
+      </a>
 
-{% endblock content %}
+   {% endblock content %}
 
 * nyalakan virtual environtment, lalu jalankan `python manage.py runserver` dan buka http://localhost:8000. Sekarang web nya sudah diisi dengan data
 
@@ -213,6 +213,7 @@ from main.views import show_main, create_product
  * buka `buka urls.py` pada folder `main`, tambahkan import
    ```
    from main.views import show_main, create_item, show_xml 
+
  * pada variabel `urlpatterns` tambahkan path url untuk mengakses fungsi yang sudah diimport tadi
    ```
    path('xml/', show_xml, name='show_xml'), 
@@ -329,10 +330,8 @@ from main.views import show_main, create_product
  - XML by ID
 
  - JSON by ID
-<br>
-<hr>
-</details>
 
+</details>
 
 ## Tugas 2 PBP Ganjil 
 <details>
