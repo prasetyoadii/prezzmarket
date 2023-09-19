@@ -322,15 +322,15 @@ kode ini digunakan untuk membuat struktur form yang menerima data produk baru
 * klik `Send` untuk mengirim request
 * akan muncul hasil response dari request pada bagian bawah Postman
  - HTML
-
+![HTML ini](https://github.com/prasetyoadii/prezzmarket/assets/125488022/51fd6233-7b32-4374-99f2-039f74f8c5cd)
  - XML
-
+![XML ini](https://github.com/prasetyoadii/prezzmarket/assets/125488022/4850f7e5-083b-49b6-a411-24f869a8cd82)
  - JSON
-
+![JSON ini](https://github.com/prasetyoadii/prezzmarket/assets/125488022/9b5f3d98-4902-40a8-8cb7-cab604ccaa58)
  - XML by ID
-
+![XML TPI ID](https://github.com/prasetyoadii/prezzmarket/assets/125488022/0b18115b-e070-478a-80e3-a97c5f9ec5a7)
  - JSON by ID
-
+![JSON TAPI ID](https://github.com/prasetyoadii/prezzmarket/assets/125488022/5b2cdf18-f52f-4e6f-9cf6-d8c02542ac1f)
 </details>
 
 <details>
