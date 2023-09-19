@@ -1,10 +1,8 @@
 # Prasetyo Adi Wijonarko, PBP E
 
-## 📖**ASSIGNMENTS PBP**📖
+## **Tugas PBP**
 <details>
 <summary>Tugas 3</summary>
-<br>
-<hr>
 
 Checklist untuk tugas ini adalah sebagai berikut.
 - [X] Membuat input `form` untuk menambahkan objek model pada app sebelumnya.
@@ -53,7 +51,7 @@ Checklist untuk tugas ini adalah sebagai berikut.
    ]
    ...
 
-   kode tersebut berguna untuk mendeteksi `base.html` sebagai berkas template
+kode tersebut berguna untuk mendeteksi `base.html` sebagai berkas template
  * buka berkas `main.html` yang ada pada `templates` direktori `main`, ubah kodenya menjadi seperti berikut 
    ```
    {% extends 'base.html' %}
@@ -69,9 +67,9 @@ Checklist untuk tugas ini adalah sebagai berikut.
       <p><strong>Kelas:</strong> {{ class }}
    {% endblock content %}
 
-   kode tersebut menggunakan `base.html` sebagai template utama
+kode tersebut menggunakan `base.html` sebagai template utama
 
-2. Setelah membaut kerangka, kita membuat form input data  
+2. Setelah membuat kerangka, kita membuat form input data  
 * buat berkas `forms.py` pada direktori main. tambahkan kode berikut
    ```
    from django.forms import ModelForm
@@ -81,15 +79,15 @@ Checklist untuk tugas ini adalah sebagai berikut.
       class Meta:
          model = Item
          fields = ["name", "amount", "description"]
-
-kode ini digunakan untuk membuat struktur form yang menerima data produk baru
+kode ini digunakan untuk membuat struktur form yang menerima data item baru
  * buka berkas `views.py` yang ada pada foler `main` tambahkan import sebagai berikut
    ```
    from django.http import HttpResponseRedirect
    from main.forms import ItemForm
    from django.urls import reverse
 
- * dalam berkas yang sama, buat fungsi `create_item` yang menerima parameter `request` untuk menghasilkan form yang dapat menambahkan data secara otomatis.  berikut kodenya
+ * dalam berkas yang sama, buat fungsi `create_item` yang menerima parameter `request` untuk menghasilkan form yang 
+   dapat menambahkan data secara otomatis.  berikut kodenya
    ```
    def create_item(request):
       form = ItemForm(request.POST or None)
@@ -116,18 +114,18 @@ kode ini digunakan untuk membuat struktur form yang menerima data produk baru
 
  * buka `urls.py` pada folder `main` dan tambahkan import 
    ```
-   from main.views import show_main, create_product
+   from main.views import show_main, create_item
 
- * pada cariabel `urlpatterns` dalam berkas `urls.py` tambahkan 
+ * pada variabel `urlpatterns` dalam berkas `urls.py` tambahkan 
    ```
    path('create-item', create_item, name='create_item'),
 
- * buat berkas baru `create_product.html` pada `templates` dalam direktori `main`. tambahkan kode berikut
+ * buat berkas baru `create_item.html` pada `templates` dalam direktori `main`. tambahkan kode berikut
    ```
    {% extends 'base.html' %} 
 
    {% block content %}
-   <h1>Add New Product</h1>
+   <h1>Add New Item</h1>
 
    <form method="POST">
       {% csrf_token %}
@@ -144,7 +142,8 @@ kode ini digunakan untuk membuat struktur form yang menerima data produk baru
 
    {% endblock %}
 
- * buka kembali `main.html`, dalam block `{% block content %} tambahkan kode berikut untuk menampilkan data dalam bentuk table serta tombol "Add New Product"
+ * Buka kembali `main.html`, dalam block `{% block content %} tambahkan kode berikut untuk menampilkan data dalam bentuk table 
+   serta tombol "Add New Item"
    ```
    ...
    <table>
@@ -156,7 +155,7 @@ kode ini digunakan untuk membuat struktur form yang menerima data produk baru
          <th>Date Added</th>
       </tr>
 
-      {% comment %} Berikut cara memperlihatkan data produk di bawah baris ini {% endcomment %}
+      {% comment %} Berikut cara memperlihatkan data item di bawah baris ini {% endcomment %}
 
       {% for item in items %}
                <tr>
@@ -178,7 +177,8 @@ kode ini digunakan untuk membuat struktur form yang menerima data produk baru
 
    {% endblock content %}
 
-* nyalakan virtual environtment, lalu jalankan `python manage.py runserver` dan buka http://localhost:8000. Sekarang web nya sudah diisi dengan data
+* nyalakan virtual environtment, lalu jalankan `python manage.py runserver` dan buka http://localhost:8000. Sekarang 
+  web nya sudah diisi dengan data
 
 <br>
 <hr>
@@ -204,7 +204,8 @@ kode ini digunakan untuk membuat struktur form yang menerima data produk baru
    from django.http import HttpResponse
    from django.core import serializers
 
- * buat fungsi `show_xml` yang menerima parameter request menerima parameter request dan mengambil seluruh data dari model Product, lalu mengembalikan hasil query dalam bentuk XML dengan menggunakan `HttpResponse` dan content type "application/xml".
+ * buat fungsi `show_xml` yang menerima parameter request menerima parameter request dan mengambil seluruh 
+   data dari model Item, lalu mengembalikan hasil query dalam bentuk XML dengan menggunakan `HttpResponse` dan content type "application/xml".
    ```
    def show_xml(request):
       data = Item.objects.all()
@@ -221,7 +222,9 @@ kode ini digunakan untuk membuat struktur form yang menerima data produk baru
  * jalankan proyek dengan perintah `python manage.py runserver` dan buka  http://localhost:8000/xml 
 
 3. Mengembalikan data dalam bentuk JSON
- * Buat fungsi `show_json` dalam file views.py yang menerima parameter request, ambil seluruh data `product`, lalu kembalikan hasil query       tersebut dalam format JSON sebagai `HttpResponse` dengan content type "application/json" menggunakan serializers.serialize("json", data).
+ * Buat fungsi `show_json` dalam file views.py yang menerima parameter request, ambil seluruh data `item`, lalu kembalikan 
+   hasil query tersebut dalam format JSON sebagai `HttpResponse` dengan content type "application/json" 
+   menggunakan serializers.serialize("json", data).
    ```
    def show_json(request):
       data = Item.objects.all()
@@ -258,8 +261,8 @@ kode ini digunakan untuk membuat struktur form yang menerima data produk baru
    path('xml/<int:id>/', show_xml_by_id, name='show_xml_by_id'),
    path('json/<int:id>/', show_json_by_id, name='show_json_by_id'), 
 
- * jalankan proyek dengan perintah `python manage.py runserver` buka  http://localhost:8000/xml/[id] untuk XML by ID dan http://localhost:8000/json/[id] untuk JSON by ID
-
+ * jalankan proyek dengan perintah `python manage.py runserver` buka  http://localhost:8000/xml/[id] untuk 
+   XML by ID dan http://localhost:8000/json/[id] untuk JSON by ID
 <br>
 <hr>
 
@@ -278,36 +281,46 @@ kode ini digunakan untuk membuat struktur form yang menerima data produk baru
 
 ### Apa perbedaan antara form `POST` dan form `GET` dalam Django?
 1. Pengiriman Data
- * `POST` : mengirimkan data dalam bentuk "request body" yang tidak terlihat (tersembunyi) dalam url
- * `GET` : Mengirimkan data dalam bentuk "query parameters" yang terdapat pada url
+ * `POST` : Mengirimkan data dalam bentuk "request body" yang tidak terlihat (tersembunyi) dalam url
+ * `GET`  : Mengirimkan data dalam bentuk "query parameters" yang terdapat pada url
 
 2. Kemanan data
- * `POST` : lebih cocok untuk data sensitif karena data yang dikirimkan tidak terlihat dalam url
- * `GET` : Kurang aman untuk data sensitif karena saat mengirimkan data url terlihat dan dapat diakses siapa saja yang memiliki akses ke url tersebut
+ * `POST` : Lebih cocok untuk data sensitif karena data yang dikirimkan tidak terlihat dalam url
+ * `GET`  : Kurang aman untuk data sensitif karena saat mengirimkan data url terlihat dan dapat diakses siapa 
+            saja yang memiliki akses ke url tersebut
 
 3. Fungsi 
- * `POST` : Digunakan ketika ingin mengirim data untuk pemrosesan lanjut seperti menyimpan data ke database atau eksekusi tindakan tertentu berdasarkan data yang dikirimkan sehingga cocok untuk formulir pengisian data
- * `GET` : Digunakan untuk mengirimkan data yang digunakan view Django untuk melakukan tindakan seperti pencarian atau pencarian data sehingga cocok untuk menjalankan permintaan yang bersifat `read-only` dan tidak mengubah data.
+ * `POST` : Digunakan ketika ingin mengirim data untuk pemrosesan lanjut seperti menyimpan data ke database atau eksekusi 
+            tindakan tertentu berdasarkan data yang dikirimkan sehingga cocok untuk formulir pengisian data
+ * `GET`  : Digunakan untuk mengirimkan data yang digunakan view Django untuk melakukan tindakan seperti pencarian atau pencarian 
+            data sehingga cocok untuk menjalankan permintaan yang bersifat `read-only` dan tidak mengubah data.
 <br>
 <hr>
 
 ### Apa perbedaan utama antara XML, JSON, dan HTML dalam konteks pengiriman data?
-* XML digunakan untuk menyimpan dan mengirim data dengan format yang fleksibel dan self-descriptive. Data dalam XML disusun seperti struktur pohon dengan elemen-elemen yang memiliki hubungan parent-child. Namun, XML dapat menjadi sulit dibaca karena banyaknya markup yang digunakan.
+* XML digunakan untuk menyimpan dan mengirim data dengan format yang fleksibel dan self-descriptive. Data dalam XML 
+  disusun seperti struktur pohon dengan elemen-elemen yang memiliki hubungan parent-child. Namun, XML dapat menjadi sulit dibaca 
+  karena banyaknya markup yang digunakan.
 
-* JSON, di sisi lain, digunakan untuk menyimpan data dalam bentuk terstruktur dengan format yang ringkas dan mudah dimengerti. Data dalam JSON disimpan dalam pasangan key-value dan dapat bersifat nested, membuatnya sangat berguna dalam pertukaran data antar-aplikasi, konfigurasi, dan penyimpanan data sederhana.
+* JSON, di sisi lain, digunakan untuk menyimpan data dalam bentuk terstruktur dengan format yang ringkas dan mudah dimengerti. Data dalam 
+  JSON disimpan dalam pasangan key-value dan dapat bersifat nested, membuatnya sangat berguna dalam pertukaran data antar-aplikasi, 
+  konfigurasi, dan penyimpanan data sederhana.
 
-* HTML adalah bahasa markup yang digunakan untuk merancang struktur dan tampilan konten pada halaman web. HTML memungkinkan penggunaan tags untuk menandai berbagai elemen seperti headings, paragraf, tautan, gambar, dan tabel, sehingga memudahkan dalam merancang tampilan halaman web.
+* HTML adalah bahasa markup yang digunakan untuk merancang struktur dan tampilan konten pada halaman web. HTML memungkinkan penggunaan 
+  tags untuk menandai berbagai elemen seperti headings, paragraf, tautan, gambar, dan tabel, sehingga memudahkan dalam merancang 
+  tampilan halaman web.
 <br>
 <hr>
 
 ### #Mengapa JSON sering digunakan dalam pertukaran data antara aplikasi web modern?
 * Kemudahan dalam penulisan dan pemahaman dengan format `key`-`value` dan array 
 * JSON memiliki fleksibilitas dalam menyimpan berbagai tipe data seperti string, boolean, array,  dan berbagai tipe data lainnya
-* JSON dapat digunakan dengan berbagai bahasa pemrograman seperti JavaScript, Java, Python, C#, dan lain-lain. Hal ini memungkinkan penggunaan data dalam format JSON dalam berbagai bahasa pemrograman tanpa masalah kompatibilitas, mempermudah pertukaran data di berbagai platform dan lingkungan pemrograman yang berbeda.
+* JSON dapat digunakan dengan berbagai bahasa pemrograman seperti JavaScript, Java, Python, C#, dan lain-lain. Hal ini memungkinkan 
+  penggunaan data dalam format JSON dalam berbagai bahasa pemrograman tanpa masalah kompatibilitas, mempermudah pertukaran data di 
+  berbagai platform dan lingkungan pemrograman yang berbeda.
 * Mudah dikonversi ke JavaScript dan sebaliknya sehingga sangat bermanfaat bagi pengembang web dalam pemrosesan data.
 <br>
 <hr>
-
 
 ### Mengakses kelima URL di poin 2 menggunakan Postman, membuat screenshot dari hasil akses URL pada Postman, dan menambahkannya ke dalam `README.md.`
 * nyalakan virtual environtment dengan perintah 
@@ -318,7 +331,8 @@ kode ini digunakan untuk membuat struktur form yang menerima data produk baru
    ```
    python manage.py runserver
 
-* Buka Postman dan buat request baru dengan method `GET` dan url http://localhost:8000/xml untuk XML, http://localhost:8000/json untuk JSON, http://localhost:8000/xml/[id] untuk XML by ID dan http://localhost:8000/json/[id] untuk JSON by ID.
+* Buka Postman dan buat request baru dengan method `GET` dan url http://localhost:8000/xml untuk XML, http://localhost:8000/json 
+ untuk JSON, http://localhost:8000/xml/[id] untuk XML by ID dan http://localhost:8000/json/[id] untuk JSON by ID.
 * klik `Send` untuk mengirim request
 * akan muncul hasil response dari request pada bagian bawah Postman
  - HTML
@@ -335,9 +349,7 @@ kode ini digunakan untuk membuat struktur form yang menerima data produk baru
 
 <details>
 <summary>Tugas 2</summary>
-<br>
-<hr>
-
+	
 Checklist untuk tugas ini adalah sebagai berikut.
 - [X] Membuat sebuah proyek django baru.
 - [x] Membuat aplikasi dengan nama main pada proyek tersebut. 
