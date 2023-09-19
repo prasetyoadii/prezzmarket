@@ -1,5 +1,6 @@
 # Prasetyo Adi Wijonarko, PBP E
 
+## 📖**ASSIGNMENTS PBP**📖
 <details>
 <summary>Tugas 3</summary>
 # Tugas 3 Pemrograman Berbasis Platform
@@ -22,24 +23,24 @@ Checklist untuk tugas ini adalah sebagai berikut.
 1. sebelum membuat form, kita perlu membuat kerangka views dari situs web kita. berikut ini adalah caranya 
  * membuat folder `templates` pada root folder, buat berkas `base.html` dan isi dengan kode berikut
    ```
-{% load static %}
-   <!DOCTYPE html>
-   <html lang="en">
-      <head>
-         <meta charset="UTF-8" />
-         <meta
-               name="viewport"
-               content="width=device-width, initial-scale=1.0"
-         />
-         {% block meta %}
-         {% endblock meta %}
-      </head>
+   {% load static %}
+      <!DOCTYPE html>
+      <html lang="en">
+         <head>
+            <meta charset="UTF-8" />
+            <meta
+                  name="viewport"
+                  content="width=device-width, initial-scale=1.0"
+            />
+            {% block meta %}
+            {% endblock meta %}
+         </head>
 
-      <body>
-         {% block content %}
-         {% endblock content %}
-      </body>
-   </html>
+         <body>
+            {% block content %}
+            {% endblock content %}
+         </body>
+      </html>
 
 * pada variabel `TEMPLATES` pada `settings.py` dalam direktori `prezzmarket` tambahkan kode berikut 
    ```...
@@ -330,6 +331,8 @@ from main.views import show_main, create_product
  - JSON by ID
 <br>
 <hr>
+</details>
+
 
 ## Tugas 2 PBP Ganjil 
 <details>
