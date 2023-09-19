@@ -1,11 +1,41 @@
-<!DOCTYPE html>
-<html>
-<head>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block content %}
+    <html>
+    <head>
+    </head>
+    <body>
     <h1>Selamat datang di Prezzmarket</h1>
 
     <p><strong>Nama:</strong> {{ name }}</p>
-    <p><strong>Kelas:</strong> {{ class }}</p>
-</body>
-</html>
+    <p><strong>Kelas:</strong> {{ class }}
+    
+    <table>
+        <h4>Anda menyimpan {{ items.count }} item disini</h4>
+        <tr>
+            <th>Name</th>
+            <th>Amount</th>
+            <th>Description</th>
+        </tr>
+
+        {% comment %} Berikut cara memperlihatkan data item di bawah baris ini {% endcomment %}
+
+        {% for item in items %}
+            <tr>
+                <td>{{item.name}}</td>
+                <td>{{item.amount}}</td>
+                <td>{{item.description}}</td>
+                <td>{{item.date_added}}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <br />
+
+    <a href="{% url 'main:create_item' %}">
+        <button>
+            Add New Item
+        </button>
+    </a>
+
+{% endblock content %}
