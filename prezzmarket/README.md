@@ -24,7 +24,7 @@ Checklist untuk tugas ini adalah sebagai berikut.
 
 ### Mengimplementasikan fungsi registrasi, login, dan logout untuk memungkinkan pengguna untuk mengakses aplikasi sebleumnya dengan lancar
 1. Membuat Fungsi dan Form Registrasi
-   * Buka `views.py` pada subdirektori `main` dan buat fungsi `register ` yang menerima parameter request`, tambahkan kode berikut : 
+   * Buka `views.py` pada subdirektori `main` dan buat fungsi `register ` yang menerima parameter request`, tambahkan kode berikut: 
    ```
    from django.shortcuts import redirect
    from django.contrib.auth.forms import UserCreationForm
@@ -202,22 +202,20 @@ Checklist untuk tugas ini adalah sebagai berikut.
 ### Membuat dua akun pengguna dengan masing-masing tiga dummy data menggunakan model yang telah dibuat pada aplikasi sebelumnya untuk setiap akun di lokal.
 * Nnyalakan virtual environtment, lalu jalankan `python manage.py runserver` dan buka http://localhost:8000.
 * Lakukan register, pada kasus ini saya menambahkan 2 dummy account yaitu 
-dummy account 1
-- name : Prasetyo_Adi
-- pass : jasjustehsisri
-- Item : 
-     - Mangga - 5 - Mangga fresh dan segar	
-     - Rujak - 20 - Rujak Segar
-     - Ikan Kembung - 12 - Ikan kembung import
-
-dummyaccount 2
-username prezzmarket 2
-- name : Ghoni
-- pass : GhaniGhoni
-- item : 
-   - Pepaya - 11 - Pepaya Segar
-   - Mangga - 21 - Mangga Segar
-   - Ikan Lele - 15 - Ikan lele fresh
+   dummy account 1
+   - name : Prasetyo_Adi
+   - pass : jasjustehsisri
+   - Item : 
+      - Mangga - 5 - Mangga fresh dan segar	
+      - Rujak - 20 - Rujak Segar
+      - Ikan Kembung - 12 - Ikan kembung import
+   dummyaccount 2
+   - name : Ghoni
+   - pass : GhaniGhoni
+   - item : 
+      - Pepaya - 11 - Pepaya Segar
+      - Mangga - 21 - Mangga Segar
+      - Ikan Lele - 15 - Ikan lele fresh
 <br>
 <hr>
 
