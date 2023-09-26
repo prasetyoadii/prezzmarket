@@ -323,6 +323,7 @@ Cookies adalah sejumlah kecil informasi yang dikirim oleh server web ke browser 
 
 ### Apakah penggunaan cookies aman secara default dalam pengembangan web, atau apakah ada risiko potensial yang harus diwaspadai?
 Penggunaan cookies secara default dalam pengembangan web tidak dianggap sebagai risiko keamanan yang signifikan. Namun, risiko muncul seperti cross site scripting (XSS) dan Session Hijacking. Dalam serangan XSS, penyerang dapat menyisipkan skrip berbahaya ke halaman web yang akan di eksekusi pengguna dan dapat digunakan untuk mencuri informasi dari cookies. Dalam serangan session hijacking, cookie sesi dicuri oleh pihak lain, sehingga penyerang dapat mengakses sesi pengguna sah dan melakukan tindakan atas nama pengguna. 
+</details>
 
 <details>
 <summary>Tugas 3</summary>
