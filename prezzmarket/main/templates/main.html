@@ -25,16 +25,34 @@
                 <td>{{item.name}}</td>
                 <td>{{item.amount}}</td>
                 <td>{{item.description}}</td>
-                <td>{{item.date_added}}</td>
+                <td>
+                    <a href = "add_amount/{{item.id}}">
+                        <button> Tambah amount </button>
+                    </a>
+                    <a href = "decrement_amount/{{item.id}}">
+                        <button> Kurang Jumlah </button>
+                    </a>
+                    <a href = "delete_item/{{item.id}}">
+                        <button> Hapus Item </button>
+                    </a>
+                </td>
             </tr>
         {% endfor %}
     </table>
 
     <br />
 
+    <h5>Sesi terakhir login: {{ last_login }}</h5>
+    
     <a href="{% url 'main:create_item' %}">
         <button>
             Add New Item
+        </button>
+    </a>
+
+    <a href="{% url 'main:logout' %}">
+        <button>
+            Logout
         </button>
     </a>
 
