@@ -310,7 +310,7 @@ UserCreationForm merupakan sebuah formulir bawan Django yang digunakan untuk mem
 <hr>
 
 ### Apa perbedaan antara autentikasi dan otorisasi dalam konteks Django, dan mengapa keduanya penting?
-Autentikasi merupakan proses yang digunakan untuk memverifikasi identitas seseorang (login). Otorisasi merupakan proses pengendalian hak akses terhadap sumber daya yang dilakukan setelah autentikasi. Perbedaannya, Autentikasi merupakan tahap sebelum otorisasi seperti mengecek kombinasi username dan password, jika sudah sesuai maka user tersebut sudah memiliki akses ke sebuah sumber daya tersebut (otorisasi).
+Autentikasi merupakan proses yang digunakan untuk memverifikasi identitas seseorang (login). Otorisasi merupakan proses pengendalian hak akses terhadap sumber daya yang dilakukan setelah autentikasi. Perbedaannya, Autentikasi merupakan tahap sebelum otorisasi seperti mengecek kombinasi username dan password, jika sudah sesuai maka akan masuk ke tahap otorisasi dimana user tersebut akan memiliki akses ke sebuah sumber daya tersebut. Keduanya digunakan administrator untuk melindungi sistem dan informasi, termasuk dalam _framework_ django.
 <br>
 <hr>
 
@@ -320,7 +320,7 @@ Cookies adalah sejumlah kecil informasi yang dikirim oleh server web ke browser 
 <hr>
 
 ### Apakah penggunaan cookies aman secara default dalam pengembangan web, atau apakah ada risiko potensial yang harus diwaspadai?
-Penggunaan cookies secara default dalam pengembangan web tidak dianggap sebagai risiko keamanan yang signifikan. Namun, risiko muncul seperti cross site scripting (XSS) dan Session Hijacking. Dalam serangan XSS, penyerang dapat menyisipkan skrip berbahaya ke halaman web yang akan di eksekusi pengguna dan dapat digunakan untuk mencuri informasi dari cookies. Dalam serangan session hijacking, cookie sesi dicuri oleh pihak lain, sehingga penyerang dapat mengakses sesi pengguna sah dan melakukan tindakan atas nama pengguna. 
+Penggunaan cookies secara default dalam pengembangan web tidak dianggap sebagai risiko keamanan yang signifikan. Namun, risiko muncul seperti cross site scripting (XSS), Session Hijacking, Cross-Site Request Forgery (XSRF). Dalam serangan XSS, penyerang dapat menyisipkan skrip berbahaya ke halaman web yang akan di eksekusi pengguna dan dapat digunakan untuk mencuri informasi dari cookies. Dalam serangan session hijacking, cookie sesi dicuri oleh pihak lain, sehingga penyerang dapat mengakses sesi pengguna sah dan melakukan tindakan atas nama pengguna. Pada XSRF, penyerang akan menghasut pengguna yang telah terotentikasi untuk melakukan tindakan seperti mengklik tautan atau mengirim permintaan HTTP, tanpa sepengetahuan mereka. Sehingga bisa saja mengakibatkan penghapusan data, perubahan data, pencurian data, dan lain-lain
 </details>
 
 <details>
