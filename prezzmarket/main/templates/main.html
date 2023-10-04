@@ -1,59 +1,184 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <html>
-    <head>
-    </head>
-    <body>
-    <h1>Selamat datang di Prezzmarket</h1>
+<html>
+<head>
+    <style>
+        body {
+            background-color: #f5f5f5;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
 
-    <p><strong>Nama:</strong> {{ name }}</p>
-    <p><strong>Kelas:</strong> {{ class }}
-    
-    <table>
-        <h4>Anda menyimpan {{ items.count }} item disini</h4>
-        <tr>
-            <th>Name</th>
-            <th>Amount</th>
-            <th>Description</th>
-        </tr>
+        .header {
+            background-color: #4caf50;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30;
+        }
 
-        {% comment %} Berikut cara memperlihatkan data item di bawah baris ini {% endcomment %}
+        .last-login-text {
+            bottom: 20px;
+            right: 20px;
+            background-color: white;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        }
 
+        .header-right {
+            display: flex;
+            gap: 20px;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .add-button {
+            margin: 0 200px;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            padding: 14px 20px; /* Menetapkan padding tombol */
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-bottom: 5px; /* Menambahkan margin bawah antara tombol dan kartu pertama */
+            text-decoration: none;
+        }
+        .add-button:hover {
+            background-color: #45a049;
+        }
+
+        .item-count {
+            font-size: 20px; /* Ukuran font lebih besar */
+            font-weight: bold; /* Ketebalan font tebal */
+            margin-bottom: 10px; /* Margin bawah 10px */
+            font-family: "Roboto", sans-serif; /* Menggunakan font Roboto atau fallback sans-serif */
+        }
+
+        .top-section {
+            margin: 0 80px;
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            width: 100%; /* Lebar maksimum untuk top-section */
+            margin-bottom: 5px; 
+        }
+
+        .card {
+            width: 300px;
+            margin: 20px;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            background-color: white;
+            transition: box-shadow 0.3s ease;
+        }
+        
+        .last-card {
+            background-color: #98FB98;
+        }
+
+        .card-buttons {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .card-button {
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100px; 
+            text-align: center; 
+            text-decoration: none;
+        }
+
+        .button-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px; 
+        }
+
+        .card-button:last-child {
+            margin-right: 0; 
+        }
+
+        .card-button:hover {
+            background-color: #45a049;
+        }
+
+        .logout {
+            color: white;
+            text-decoration: none;
+            background-color: #f44336;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .logout:hover {
+            background-color: #d32f2f;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-left">
+            <p><strong>Nama:</strong> {{ name }}</p>
+            <p><strong>Kelas:</strong> {{ class }}</p>
+        </div>
+        <div class="header-right">
+            <a href="{% url 'main:logout' %}" class="logout">Logout</a>
+        </div>
+    </div>
+
+    <div class="top-section">
+        <div class="top-section">
+            <h2 class="item-count">Anda menyimpan {{ items.count }} item disini</h2>
+            <a href="{% url 'main:create_item'%}" class="add-button">Buat Item</a>
+        </div>
+    </div>
+
+    <div class="container">
         {% for item in items %}
-            <tr>
-                <td>{{item.name}}</td>
-                <td>{{item.amount}}</td>
-                <td>{{item.description}}</td>
-                <td>
-                    <a href = "add_amount/{{item.id}}">
-                        <button> Tambah amount </button>
-                    </a>
-                    <a href = "decrement_amount/{{item.id}}">
-                        <button> Kurang Jumlah </button>
-                    </a>
-                    <a href = "delete_item/{{item.id}}">
-                        <button> Hapus Item </button>
-                    </a>
-                </td>
-            </tr>
+            <div class="card {% if forloop.last %}last-card{% endif %}">
+                <h2>{{ item.name }}</h2>
+                <p><strong>Jumlah:</strong> {{ item.amount }}</p>
+                <p><strong>Deskripsi:</strong> {{ item.description }}</p>
+                <div class="card-buttons">
+                    <div class="button-row">
+                        <a href="add_amount/{{ item.id }}" class="card-button">Tambah</a>
+                        <a href="decrement_amount/{{ item.id }}" class="card-button">Kurang</a>
+                    </div>
+                    <div class="button-row">
+                        <a href="edit_item/{{ item.id }}" class="card-button">Edit</a>
+                        <a href="delete_item/{{ item.id }}" class="card-button">Hapus</a>
+                    </div>
+                </div>
+            </div>
         {% endfor %}
-    </table>
+    </div>
 
-    <br />
+    <div class="last-login-text">
+        Sesi terakhir login: {{ last_login }}
+    </div>
 
-    <h5>Sesi terakhir login: {{ last_login }}</h5>
-    
-    <a href="{% url 'main:create_item' %}">
-        <button>
-            Add New Item
-        </button>
-    </a>
-
-    <a href="{% url 'main:logout' %}">
-        <button>
-            Logout
-        </button>
-    </a>
-
+</body>
 {% endblock content %}
+</html>

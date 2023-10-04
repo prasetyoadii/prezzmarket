@@ -1,11 +1,11 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
+
+{% load static %}
 
 {% block content %}
-
 <html>
-<head>
-    <style>
-    .add-item-container {
+<style>
+     .add-item-container {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -40,7 +40,7 @@
 
 <div class="add-item-container">
     <div class="add-item-form">
-        <h1 class="add-item-header">Add New Item</h1>
+        <h1 class="add-item-header">Edit Item</h1>
         <form method="POST">
             {% csrf_token %}
             <table class="add-item-table">
@@ -48,7 +48,7 @@
                 <tr>
                     <td></td>
                     <td>
-                        <input type="submit" value="Add Item" class="add-item-button">
+                        <input type="submit" value="Edit Item" class="add-item-button">
                     </td>
                 </tr>
             </table>

@@ -1,6 +1,538 @@
 # Prasetyo Adi Wijonarko, PBP E
 
 ## **Tugas PBP**
+
+<details>
+<summary>Tugas 5 </summary>
+
+Checklist untuk tugas ini adalah sebagai berikut.
+- [X] Kustomisasi desain pada templat HTML yang telah dibuat pada Tugas 4 dengan menggunakan CSS atau CSS framework (seperti Bootstrap, Tailwind, Bulma) dengan ketentuan sebagai berikut:
+	- [x] Kustomisasi halaman login, register, dan tambah inventori semenarik mungkin.
+	- [x] Kustomisasi halaman daftar inventori menjadi lebih berwarna maupun menggunakan apporach lain seperti menggunakan Card.
+- [x] Menjawab beberapa pertanyaan berikut pada `README.md` pada root folder (silakan modifikasi `README.md` yang telah kamu buat sebelumnya; tambahkan subjudul untuk setiap tugas).
+	- [x]Jelaskan manfaat dari setiap element selector dan kapan waktu yang tepat untuk menggunakannya.
+	- [x] Jelaskan HTML5 Tag yang kamu ketahui.
+	- [x] Jelaskan perbedaan antara margin dan padding.
+   - [x] Jelaskan perbedaan antara framework CSS Tailwind dan Bootstrap. Kapan sebaiknya kita menggunakan Bootstrap daripada Tailwind, dan sebaliknya?
+	- [x] Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
+- [X] Melakukan add-commit-push ke GitHub.
+<br>
+<hr>
+
+### Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
+1. `create_item.html`
+   * Pada `create_item.html` saya menambahkan CSS seperti berikut
+   ```
+   .add-item-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #4caf50;
+   }
+
+   .add-item-form {
+      text-align: center;
+      padding: 20px;
+      border-radius: 10px;
+      background-color: white;
+   }
+
+   .add-item-header {
+      color: #4caf50;
+   }
+
+   .add-item-table {
+      margin: 0 auto;
+   }
+
+   .add-item-button {
+      background-color: #4caf50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+   }
+
+   ```
+
+   Penjelasan CSS di atas:
+
+      * `.add-item-container`: Membuat wadah dengan tinggi 100% dari viewport (tinggi layar) dengan latar belakang warna hijau (#4caf50) dan mengatur kontennya ke 
+      tengah baik secara horizontal maupun vertikal.
+      * `add-item-form`: Mendesain formulir dengan latar belakang putih, padding 20px, dan sudut elemen formulir (border-radius) sebesar 10px.
+      * `.add-item-header`: Memberi warna teks hijau untuk judul formulir.
+      * `.add-item-table`: Mengatur margin formulir ke auto, sehingga akan berada di tengah-tengah halaman.
+      * `.add-item-button`: Mendesain tombol dengan latar belakang hijau dan teks putih, dengan padding 10px di atas dan bawah serta 20px di kanan dan kiri, 
+      membulatkan sudut tombol (border-radius) sebesar 5px, dan mengubah kursor saat diarahkan ke tombol.
+   
+   * Dengan menambahkan style yang sudah kita definisikan, ubah htmlnya agar dapat menggunakan style tersebut seperti contoh dibawah berikut:
+   ```
+   {% extends 'base.html' %} 
+
+   {% block content %}
+   <div class="add-item-container">
+      <div class="add-item-form">
+         <h1 class="add-item-header">Add New Item</h1>
+         <form method="POST">
+               {% csrf_token %}
+               <table class="add-item-table">
+                  {{ form.as_table }}
+                  <tr>
+                     <td></td>
+                     <td>
+                           <input type="submit" value="Add Item" class="add-item-button">
+                     </td>
+                  </tr>
+               </table>
+         </form>
+      </div>
+   </div>
+   {% endblock %}
+
+   ```
+
+2. `login.html`
+   * Pada `login.html` saya menambahkan CSS sebagai berikut:
+   ```
+      body {
+         background-color: #58d358;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         height: 100vh;
+         margin: 0;
+      }
+
+      .login {
+         background-color: #ffffff;
+         padding: 20px;
+         border-radius: 10px;
+         box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+      }
+
+      .login h1 {
+         text-align: center;
+         color: #008000;
+      }
+
+      .form-control {
+         width: 90%;
+         padding: 10px;
+         margin: 10px 0;
+         border: 1px solid #008000;
+         border-radius: 5px;
+      }
+
+      .btn.login_btn {
+         width: 30%;
+         margin: 0 auto;
+         background-color: #008000;
+         color: #ffffff;
+         border: none;
+         padding: 10px;
+         cursor: pointer;
+         border-radius: 5px;
+         display: block;
+      }
+
+      .btn.login_btn:hover {
+         background-color: #005700;
+      }
+
+      .login p {
+         text-align: center;
+         margin-top: 20px;
+      }
+
+   ```
+   Penjelasan
+      * `body`: Mengatur latar belakang halaman dengan warna hijau muda (#58d358) dan mengatur tata letak halaman menjadi flex container agar elemen-elemen di dalamnya dapat diatur secara fleksibel.
+      * `.login`: Mengatur tampilan kotak login dengan latar belakang putih, padding, sudut elemen login (border-radius), dan efek bayangan menggunakan properti box-shadow.
+      * `.login h1`: Mengatur tampilan judul "Login" dengan warna hijau muda (#008000) dan posisi teks tengah (text-align: center).
+      * `.form-control`: Mengatur tampilan input dengan lebar 90%, padding, margin atas dan bawah, border, dan sudut elemen input.
+      * `.btn.login_btn`: Mengatur tampilan tombol login dengan lebar 30%, warna latar belakang hijau muda, warna teks putih, border, padding, kursor, sudut elemen tombol, dan membuatnya menjadi elemen blok untuk menerapkan margin tengah (margin: 0 auto).
+      * `.btn.login_btn:hover:` Mengatur tampilan tombol saat dihover dengan mengubah warna latar belakang menjadi hijau tua (#005700).
+      * `.login p`: Memusatkan teks "Don't have an account yet? Register Now" secara horizontal dan memberikan margin atas 20px
+
+   * Setelah mendefinisikan style cssnya, tambahkan kode html sebagai berikut
+   ```
+   <body>
+      <div class="login">
+         <h1>Login</h1>
+         <form method="POST" action="">
+               {% csrf_token %}
+               <div>
+                  <input type="text" name="username" placeholder="Username" class="form-control">
+               </div>
+
+               <div>
+                  <input type="password" name="password" placeholder="Password" class="form-control">
+               </div>
+
+               <div>
+                  <input class="btn login_btn" type="submit" value="Login">
+               </div>
+         </form>
+
+         {% if messages %}
+         <ul>
+               {% for message in messages %}
+               <li>{{ message }}</li>
+               {% endfor %}
+         </ul>
+         {% endif %}
+
+         <p>Don't have an account yet? <a href="{% url 'main:register' %}">Register Now</a></p>
+      </div>
+   </body>
+
+   </html>
+   ```
+3. `register.html`
+   * Pada `register.html` saya menambahkan css sebagai berikut
+   ```
+   .login-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #4caf50;
+   }
+
+   .login {
+      text-align: center;
+      padding: 20px;
+      border-radius: 10px;
+      background-color: white;
+   }
+
+   .login-form table {
+      margin: 0 auto;
+   }
+
+   .login-form input[type="text"], 
+   .login-form input[type="password"] {
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 8px;
+      box-sizing: border-box;
+   }
+
+   .login-form input[type="submit"] {
+      background-color: #4caf50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+   }
+
+   .login-form input[type="submit"]:hover {
+      background-color: #45a049;
+   }
+   ```
+
+   Penjelasan
+      * `.login-container`: Membuat wadah dengan tinggi 100% dari viewport (tinggi layar) dengan latar belakang warna hijau (#4caf50) dan mengatur kontennya ke tengah baik secara horizontal maupun vertikal.
+      * `.login`: Membuat kotak formulir dengan latar belakang putih, padding 20px, dan sudut elemen formulir (border-radius) sebesar 10px.
+      * `.login-form table`: Mengatur margin formulir ke auto, sehingga formulir berada di tengah halaman.
+      * `.login-form input[type="text"], .login-form input[type="password"]`: Mengatur lebar input menjadi 100%, memberi margin bawah 10px, padding 8px, dan mengatur box-sizing agar padding tidak mempengaruhi lebar input.
+      * `.login-form input[type="submit"]`: Mendesain tombol submit dengan latar belakang hijau (#4caf50), teks putih, padding 10px di atas dan bawah serta 20px di kanan dan kiri, membulatkan sudut tombol (border-radius) sebesar 5px, dan mengubah kursor saat diarahkan ke tombol.
+      * `.login-form input[type="submit"]:hover`: Mengubah warna latar belakang tombol saat dihover menjadi hijau tua (#45a049).
+
+   * Setelah mendefinisikan style cssnya, tambahkan kode html sebagai berikut
+   ```
+   <div class="login-container">
+      <div class="login">
+         <h1>Register</h1>  
+
+         <form method="POST" class="login-form">  
+               {% csrf_token %}  
+               <table>
+                  {{ form.as_table }}  
+                  <tr>  
+                     <td></td>
+                     <td><input type="submit" name="submit" value="Daftar"/></td>  
+                  </tr>  
+               </table>  
+         </form>
+
+         {% if messages %}  
+               <ul>   
+                  {% for message in messages %}  
+                     <li>{{ message }}</li>  
+                  {% endfor %}  
+               </ul>   
+         {% endif %}
+      </div>
+   </div>  
+   ```
+4. `main.html`
+   * Pada `main.html` saya menambahkan CSS sebagai berikut:
+   ```
+      body {
+         background-color: #f5f5f5;
+         font-family: Arial, sans-serif;
+         margin: 0;
+         padding: 0;
+      }
+
+      .header {
+         background-color: #4caf50;
+         color: white;
+         padding: 15px;
+         text-align: left;
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+         margin-bottom: 30px;
+      }
+
+      .last-login-text {
+         bottom: 20px;
+         right: 20px;
+         background-color: white;
+         padding: 10px;
+         border-radius: 5px;
+         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+      }
+
+      .header-right {
+         display: flex;
+         gap: 20px;
+      }
+
+      .container {
+         display: flex;
+         flex-wrap: wrap;
+         justify-content: center;
+         padding: 20px;
+      }
+
+      .add-button {
+         margin: 0 200px;
+         background-color: #4caf50;
+         color: white;
+         border: none;
+         padding: 14px 20px;
+         border-radius: 5px;
+         cursor: pointer;
+         transition: background-color 0.3s ease;
+         margin-bottom: 5px;
+         text-decoration: none;
+      }
+
+      .add-button:hover {
+         background-color: #45a049;
+      }
+
+      .item-count {
+         font-size: 20px;
+         font-weight: bold;
+         margin-bottom: 10px;
+         font-family: "Roboto", sans-serif;
+      }
+
+      .top-section {
+         margin: 0 80px;
+         margin-top: 20px;
+         display: flex;
+         justify-content: space-between;
+         width: 100%;
+         margin-bottom: 5px;
+      }
+
+      .card {
+         width: 300px;
+         margin: 20px;
+         padding: 40px;
+         border-radius: 10px;
+         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+         background-color: white;
+         transition: box-shadow 0.3s ease;
+      }
+
+      .card-buttons {
+         display: flex;
+         flex-direction: column;
+         justify-content: space-between;
+         margin-top: 20px;
+      }
+
+      .card-button {
+         background-color: #4caf50;
+         color: white;
+         border: none;
+         padding: 10px 20px;
+         border-radius: 5px;
+         cursor: pointer;
+         transition: background-color 0.3s ease;
+         width: 100px;
+         text-align: center;
+         text-decoration: none;
+      }
+
+      .button-row {
+         display: flex;
+         justify-content: space-between;
+         margin-bottom: 10px;
+      }
+
+      .card-button:last-child {
+         margin-right: 0;
+      }
+
+      .card-button:hover {
+         background-color: #45a049;
+      }
+
+      .logout {
+         color: white;
+         text-decoration: none;
+         background-color: #f44336;
+         padding: 10px 20px;
+         border-radius: 5px;
+         transition: background-color 0.3s ease;
+      }
+
+      .logout:hover {
+         background-color: #d32f2f;
+      }
+   ```
+   Penjelasannya :
+      * `Body`: Digunakan untuk mengatur properti dasar halaman: Memberikan latar belakang berwarna (#f5f5f5), menggunakan font Arial dan fallback sans-serif, 
+      serta menghapus margin dan padding default.
+      * `.header`: Digunakan untuk mengatur header halaman: Memberikan latar belakang hijau (#4caf50), teks putih, padding 15px, dan mengatur elemen-elemen 
+      di dalamnya menggunakan flexbox agar terletak di sebelah kiri dan kanan.
+      * `.last-login-text`: Digunakan untuk menampilkan teks sesi terakhir login: Memberikan latar belakang putih, padding 10px, border-radius 5px, dan efek bayangan (box shadow) untuk memberi elemen tampilan bertekstur.
+      * `.header-right`: Digunakan untuk mengelompokkan elemen di sebelah kanan header: Menggunakan flexbox dengan jarak (gap) 20px antar elemen.
+      * `.container`: Digunakan untuk mengelompokkan konten halaman: Menggunakan flexbox dengan wrap agar konten dapat melingkupi ke baris baru jika ruang tidak mencukupi, 
+      dan memberikan padding 20px.
+      * `.add-button`: Digunakan untuk tombol "Buat Item": Memberikan margin di sisi kanan dan kiri, latar belakang hijau, teks putih, padding, sudut melengkung, efek hover 
+      dengan perubahan warna latar belakang, dan mengubah kursor menjadi tanda tangan saat dihover.
+      * `.item-count`: Digunakan untuk menunjukkan jumlah item: Memberikan ukuran font 20px, tebal, dan menggunakan font "Roboto" atau fallback sans-serif.
+      * `.top-section`: Digunakan untuk mengatur bagian atas halaman: Menggunakan flexbox dengan ruang margin, memberikan efek hover pada tombol "Buat Item" seperti .add-button.
+      * `.card`: Digunakan untuk mengatur kartu item: Memberikan lebar 300px, margin, padding, sudut melengkung, efek bayangan, dan transisi efek bayangan untuk 
+      merespons perubahan hover.
+      * ``.card-buttons``: Digunakan untuk mengelompokkan tombol-tombol di dalam kartu item: Menggunakan flexbox dengan penataan vertikal, memberikan ruang margin di bagian atas.
+      * ``.card-button``: Digunakan untuk tombol-tombol dalam kartu item: Memberikan latar belakang hijau, teks putih, padding, sudut melengkung, efek hover 
+      dengan perubahan warna latar belakang, dan mengubah kursor menjadi tanda tangan saat dihover.
+      * ``.logout``: Digunakan untuk tombol logout: Memberikan warna teks putih, latar belakang merah (#f44336), padding, sudut melengkung, dan efek hover dengan 
+      perubahan warna latar belakang.
+   * Setelah mendefinisikan css style, tambahkan kode html sebagai berikut
+   ```
+      <body>
+      <div class="header">
+         <div class="header-left">
+               <p><strong>Nama:</strong> {{ name }}</p>
+               <p><strong>Kelas:</strong> {{ class }}</p>
+         </div>
+         <div class="header-right">
+               <a href="{% url 'main:logout' %}" class="logout">Logout</a>
+         </div>
+      </div>
+
+      <div class="top-section">
+         <div class="top-section">
+               <h2 class="item-count">Anda menyimpan {{ items.count }} item disini</h2>
+               <a href="{% url 'main:create_item'%}" class="add-button">Buat Item</a>
+         </div>
+      </div>
+
+      <div class="container">
+         {% for item in items %}
+               <div class="card">
+                  <h2>{{ item.name }}</h2>
+                  <p><strong>Jumlah:</strong> {{ item.amount }}</p>
+                  <p><strong>Deskripsi:</strong> {{ item.description }}</p>
+                  <div class="card-buttons">
+                     <div class="button-row">
+                           <a href="add_amount/{{ item.id }}" class="card-button">Tambah</a>
+                           <a href="decrement_amount/{{ item.id }}" class="card-button">Kurang</a>
+                     </div>
+                     <div class="button-row">
+                           <a href="edit_item/{{ item.id }}" class="card-button">Edit</a>
+                           <a href="delete_item/{{ item.id }}" class="card-button">Hapus</a>
+                     </div>
+                  </div>
+               </div>
+         {% endfor %}
+      </div>
+
+      <div class="last-login-text">
+         Sesi terakhir login: {{ last_login }}
+      </div>
+
+      </body>
+      {% endblock content %}
+      </html>
+
+   ```
+<br>
+<hr>
+
+### Jelaskan manfaat dari setiap element selector dan kapan waktu yang tepat untuk menggunakannya.
+* Element Selector memungkinkan kita mengubah properti untuk semua elemen yang memiliki tag HTML yang sama.Kita dapat menggunakan element sebagai selector dalam file CSS. Element selector menggunakan format [id_name] (tanpa diawali oleh sebuah simbol).  Cocok digunakan saat Anda ingin mengubah gaya untuk semua elemen dengan tag HTML yang sama.
+* ID selector menggunakan ID pada tag sebagai selector-nya. ID bersifat unik dalam satu halaman web. ID dapat ditambahkan pada halaman template HTML.Kemudian, kita dapat menggunakan ID tersebut sebagai selector dalam file CSS. ID selector menggunakan format #[id_name] (selalu diawali #).Digunakan ketika kita hanya memiliki satu elemen dalam halaman web yang membutuhkan pengaturan khusus dan unik.
+* Class Selector memungkinkan kita untuk mengelompokkan elemen dengan karakteristik yang sama.Kemudian, kita dapat menggunakan Class tersebut sebagai selector dalam file CSS. Class selector menggunakan format .[class_name] (diawali .). Cocok digunakan ketika kita ingin mengelompokkan beberapa elemen yang memiliki karakteristik atau styling yang sama.
+<br>
+<hr>
+
+### Jelaskan HTML5 tag uang kamu ketahui
+* `<article>`: Digunakan untuk mendefinisikan sebuah konten independen dalam dokumen, seperti artikel blog, majalah, atau koran.
+* `<aside>` : Menunjukkan bahwa artikel tersebut memiliki hubungan yang sedikit terkait dengan konten keseluruhan halaman.
+* `<canvas>`: Digunakan untuk menggambar gambar atau grafik.
+* `<details>`: Menyatakan informasi atau kontrol tambahan yang diperlukan oleh pengguna.
+* `<footer>`: Mendefinisikan footer untuk sebuah bagian.
+* `<header>`: Mendefinisikan header untuk sebuah bagian.
+* `<nav>`: Digunakan untuk mendefinisikan tautan navigasi dalam dokumen.
+* `<progress>`: Menyatakan kemajuan dari suatu tugas.
+* `<rp>`: Mendefinisikan apa yang harus ditampilkan di browser yang tidak mendukung anotasi ruby.
+* `<rt>`: Mendefinisikan penjelasan atau pelafalan karakter.
+* `<ruby>`: Mendefinisikan anotasi ruby bersama dengan `<rp>` dan `<rt>`.
+* `<section>`: Mendefinisikan sebuah bagian dalam dokumen.
+* `<summary>`: Menyatakan judul yang terlihat untuk elemen ``<details>``.
+<br>
+<hr>
+
+### Jelaskan perbedaan antara margin dan padding
+* Padding:
+   * Representasi: Padding menggambarkan jumlah ruang dalam 
+   (inner space) yang dimiliki oleh suatu elemen.
+   * Pengaturan Otomatis: Tidak mungkin mengatur padding 
+   sebagai "auto padding." Padding harus ditentukan secara eksplisit.
+   * Pengaturan Nilai Negatif: Tidak mungkin menggunakan nilai
+   negatif saat mendefinisikan padding. Padding tidak dapat memiliki nilai negatif.
+   * Pengaruh Terhadap Elemen Lain: Padding dapat dipengaruhi 
+   oleh gaya elemen lain di situs web, seperti font atau ukuran konten.
+
+* Margin:
+   * Representasi: Margin adalah whitespace (ruang putih) yang tersedia di sekitar suatu elemen, menentukan jarak antara elemen tersebut dan elemen-elemen lain di sekitarnya.
+   * Pengaturan Otomatis: Mungkin menggunakan pengaturan otomatis (seperti "margin: auto;") untuk margin, yang akan secara otomatis menyesuaikan margin berdasarkan konten dan lebar elemen terkait.
+   * Pengaturan Nilai Negatif: Mungkin menggunakan nilai negatif saat mendefinisikan margin. Nilai negatif dalam margin dapat digunakan untuk menempatkan elemen di luar batas normalnya, menghasilkan tumpukan elemen.
+   * Pengaruh Terhadap Elemen Lain: Margin tidak dipengaruhi oleh stylisasi elemen-elemen lain di situs web. Margin dapat mempengaruhi jarak antara elemen-elemen di sekitarnya tanpa mempengaruhi gaya elemen lainnya.
+<br>
+<hr>
+
+### Jelaskan perbedaan antara framework CSS Tailwind dan Bootstrap. Kapan sebaiknya kita menggunakan Bootstrap daripada Tailwind, dan sebaliknya?
+1. Tailwind
+   * Tailwind CSS membangun tampilan dengan menggabungkan kelas-kelas utilitas yang telah didefinisikan sebelumnya.
+   * Tailwind CSS memiliki file CSS yang lebih kecil sedikit dibandingkan Bootstrap dan hanya akan memuat kelas-kelas utilitas yang ada
+   * Tailwind CSS memiliki memberikan fleksibilitas dan adaptabilitas tinggi terhadap proyek
+   * Tailwind CSS memiliki pembelajaran yang lebih curam karena memerlukan pemahaman terhadap kelas-kelas utilitas yang tersedia dan bagaimana menggabungkannya untuk mencapai tampilan yang diinginkan.
+
+2. Bootstrap
+   * Bootstrap menggunakan gaya dan komponen yang telah didefinisikan, yang memiliki tampilan yang sudah jadi dan dapat digunakan secara langsung.
+   * Bootstrap memiliki file CSS yang lebih besar dibandingkan dengan Tailwind CSS karena termasuk banyak komponen yang telah didefinisikan.
+   * Bootstrap sering kali menghasilkan tampilan yang lebih konsisten di seluruh proyek karena menggunakan komponen yang telah didefinisikan.
+   * Bootstrap memiliki pembelajaran yang lebih cepat untuk pemula karena dapat mulai dengan komponen yang telah didefinisikan. 
+
+Jika menginginkan kontrol penuh dan kemampuan kostumisasi yang tinggi, Tailwind CSS merupakan pilihan yang baik. Namun, jika membutuhkan solusi cepat dan komponen yang sudah siap pakai dan konsistensi desain, Bootstrap lebih sesuai.
+
+</details>
+
 <details>
 <summary>Tugas 4</summary>
 
