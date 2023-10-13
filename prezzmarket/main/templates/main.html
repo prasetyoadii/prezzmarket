@@ -207,7 +207,6 @@
     async function deleteItems(id) {
         const response = await fetch(`/remove-item/${id}`);
         refreshItems();
-        updateSize()
     }
     
     async function refreshItems() {
