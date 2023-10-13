@@ -24,6 +24,7 @@
    - [x] Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
 - [x] Melakukan ```add```-```commit```-```push``` ke GitHub
 - [x] Melakukan deployment ke PaaS PBP Fasilkom UI dan sertakan tautan aplikasi pada file README.md.
+
 <br>
 <hr>
 
