@@ -157,7 +157,7 @@
 
     <div class="container">
         {% for item in items %}
-            <div class="card {% if forloop.last %}last-card{% endif %}">
+            <div class="card {% if forloop.last %}last-card{% endif %}"data-id="{{ item.id }}">
                 <h2>{{ item.name }}</h2>
                 <p><strong>Jumlah:</strong> {{ item.amount }}</p>
                 <p><strong>Deskripsi:</strong> {{ item.description }}</p>
@@ -178,7 +178,29 @@
     <div class="last-login-text">
         Sesi terakhir login: {{ last_login }}
     </div>
+    
 
 </body>
+<script>
+    async function getItems() {
+        return fetch("{% url 'main:get_item_json' %}").then((res) => res.json());
+    }
+
+    async function deleteItem(id) {
+        const response = await fetch(`/remove-item/${id}`);
+        refreshItems();
+    }
+    function addItem() {
+        fetch("{% url 'main:add_item_ajax' %}", {
+            method: "POST",
+            body: new FormData(document.querySelector('#form'))
+        }).then(refreshProducts)
+
+        document.getElementById("form").reset()
+        return false
+    }
+
+    document.getElementById("button_add").onclick = addItem
+</script>
 {% endblock content %}
 </html>

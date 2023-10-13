@@ -3,6 +3,134 @@
 ## **Tugas PBP**
 
 <details>
+<summary> Tugas 6 </summary>
+
+- [X] Mengubah tugas 5 yang telah dibuat sebelumnya menjadi menggunakan AJAX.
+	- [x] AJAX GET
+	   - [x] Ubahlah kode cards data item agar dapat mendukung  AJAX GET.
+      - [x] Lakukan pengambilan task menggunakan AJAX GET.
+   - [x] AJAX POST
+      - [x] Buatlah sebuah tombol yang membuka sebuah modal dengan form untuk menambahkan item.
+      - [x] Buatlah fungsi view baru untuk menambahkan item baru ke dalam basis data.
+      - [x] Buatlah path ```/create-ajax/``` yang mengarah ke fungsi view yang baru kamu buat.
+      - [x] Hubungkan form yang telah kamu buat di dalam modal kamu ke path``` /create-ajax/```.
+      - [x] Lakukan refresh pada halaman utama secara asinkronus untuk menampilkan daftar item terbaru tanpa reload halaman utama secara keseluruhan.
+   - [x] Melakukan perintah ```collecstatic```
+- [X] Menjawab beberapa pertanyaan berikut pada ```README.md``` pada root folder (silakan modifikasi ```README.md`` yang telah kamu buat sebelumnya; tambahkan subjudul untuk setiap tugas).
+   - [x] Jelaskan perbedaan antara asynchronous programming dengan synchronous programming.
+   - [x] Dalam penerapan JavaScript dan AJAX, terdapat penerapan paradigma event-driven programming. Jelaskan maksud dari paradigma tersebut dan sebutkan salah satu contoh penerapannya pada tugas ini.
+   - [x] Jelaskan penerapan asynchronous programming pada AJAX.
+   - [x] Pada PBP kali ini, penerapan AJAX dilakukan dengan menggunakan Fetch API daripada library jQuery. Bandingkanlah kedua teknologi tersebut dan tuliskan pendapat kamu teknologi manakah yang lebih baik untuk digunakan.
+   - [x] Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
+- [x] Melakukan ```add```-```commit```-```push``` ke GitHub
+- [x] Melakukan deployment ke PaaS PBP Fasilkom UI dan sertakan tautan aplikasi pada file README.md.
+<br>
+<hr>
+
+### Mengubah tugas 5 yang telah dibuat sebelumnya menjadi menggunakan AJAX
+
+- AJAX GET
+   - Ubahlah kode card data item agar dapat mendukung AJAX GET
+   - Lakukan pengambilan task menggunakan AJAX GET
+      - Buka views.py pada direktori main dan tambahkan fungsi berikut
+      ```
+      def get_item_json(request):
+         product_item = Item.objects.all()
+         return HttpResponse(serializers.serialize('json', product_item))
+      ```
+      - Buka urls.py, tambahkan impor fungsi ```get_item_json``` dan tambahkan kode berikut di ```urlpatterns```
+      ```
+      path('get-item/', get_item_json, name='get_item_json'),
+      ```
+      - Buka ```main.html``` tambahkan ```<script>```
+      ```
+      async function getProducts() {
+         return fetch("{% url 'main:get_item_json' %}").then((res) => res.json())
+      }
+      ```
+- AJAX POST
+   - Modal:
+   - Button untuk membuka modal:
+   - Buatlah fungsi view baru untuk menambahkan item baru ke dalam basis data.
+      - Buka ```views.py``` pada main dan tambahkan import ```from django.views.decorators.csrf import csrf_exempt``` dan tambahkan fungsi berikut:
+         ```
+         @csrf_exempt
+         def add_item_ajax(request):
+            if request.method == 'POST':
+               name = request.POST.get("name")
+               amount = request.POST.get("amount")
+               description = request.POST.get("description")
+               user = request.user
+
+               new_product = Product(name=name,amount=amount, description=description, user=user)
+               new_product.save()
+
+               return HttpResponse(b"CREATED", status=201)
+            return HttpResponseNotFound()
+         ```
+   - Buatlah path /create-ajax/ yang mengarah ke fungsi view yang baru kamu buat.
+      - Buka urls.py tambahkan impor add_item_ajax dari views.py dan tambahkan path url:
+         ```
+         path('create-ajax/', add_product_ajax, name='add_product_ajax'),
+         ```
+   - Hubungkan form yang telah kamu buat di dalam modal kamu ke path /create-ajax/.
+
+   - Lakukan refresh pada halaman utama secara asinkronus untuk menampilkan daftar item terbaru tanpa reload halaman utama secara keseluruhan.
+- Melakukan perintah ```collecstatic```.
+   - Buka ```settings.py``` dan tambahkan kode beirkut:
+   ```
+   STATIC_URL = 'static/'
+   STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+   ```
+   - Jalankan dengan perintah ```python3 manage.py collectstatic```
+<hr>
+
+### Jelaskan perbedaan antara asynchronous programming dengan synchronous programming.
+- Asynchronous Programming:
+   - Non-blocking dan Multi-Threaded:
+   Asynchronous programming adalah arsitektur non-blocking, yang berarti eksekusi suatu tugas tidak bergantung pada selesainya tugas sebelumnya. Tugas-tugas dapat berjalan secara simultan (multi-threaded).
+   - Parallel Execution:
+   Operasi atau program dapat berjalan secara paralel, memungkinkan beberapa tugas berjalan secara bersamaan.
+   - Non-blocking I/O:
+   Dapat mengirim banyak permintaan ke server tanpa harus menunggu jawaban dari setiap permintaan sebelum mengirim yang berikutnya.
+   - Increased Throughput:
+   Meningkatkan throughput karena beberapa operasi dapat berjalan pada saat bersamaan.
+   - User Experience:
+   Meningkatkan pengalaman pengguna dengan mengurangi waktu tunda antara pemanggilan fungsi dan pengembalian nilai dari fungsi tersebut. Ini membantu aplikasi merasa lebih responsif dan cepat.
+- Synchronous Programming:
+   - Blocking dan Single-Threaded:
+   Synchronous programming adalah arsitektur blocking, yang berarti eksekusi setiap operasi tergantung pada penyelesaian operasi sebelumnya. Hanya satu operasi atau program yang akan berjalan pada satu waktu (single-threaded).
+   - Sequential Execution:
+   Operasi atau program dijalankan secara berurutan, satu demi satu. Setiap tugas harus menunggu tugas sebelumnya untuk selesai sebelum dapat dimulai.
+   - Blocking I/O:
+   Hanya bisa mengirim satu permintaan ke server pada satu waktu dan harus menunggu sampai mendapatkan jawaban sebelum mengirim permintaan berikutnya.
+   - Slower Execution:
+   Lebih lambat karena operasi berjalan satu per satu secara berurutan.
+   - Developer Experience:
+   Lebih mudah untuk dikodekan. Synchronous programming lebih mudah diimplementasikan dan didukung oleh hampir semua bahasa pemrograman. Karena ini adalah metode pemrograman default, pengembang tidak perlu menghabiskan waktu belajar hal baru yang dapat membuka peluang bagi bug.
+<hr>
+
+### Dalam penerapan JavaScript dan AJAX, terdapat penerapan paradigma event-driven programming. Jelaskan maksud dari paradigma tersebut dan sebutkan salah satu contoh penerapannya pada tugas ini.
+Paradignma event-driven programming mengacu pada pendekatan dimana elemen-elemen yang terdapat dalam halaman web berkomunikasi melalui events (peristwa). Misalnya, ketika pengguna berinteraksi dengan web seperti mengklik tombol, peristiwa tersebut dipicu. Sebagai respons, kode atau tindakan tertentu dieksekusi. Pendekatan ini memungkinkan halaman web menjadi dinamis dan responsif terhadap tindakan pengguna, menciptakan pengalaman pengguna yang lebih interaktif dan dinamis. Dalam paradignma event-driven programming, program menunggu terjadinya peristiwa tertentu. Ketika peristiwa tersebut terjadi, kode yang sesuai akan dijalankan. Contoh salah satu penerapannya adalah ```Buat Item```, menggunakan event ```onclick``` pada ```button_add```. 
+<hr>
+
+### Jelaskan penerapan asynchronous programming pada AJAX.
+Dalam penggunaan AJAX asinkronus, respons dari server tidak menunggu permintaan. Setelah mengirim permintaan, JavaScript dapat melanjutkan tugas lainnya. Setiap permintaan AJAX melibatkan pengiriman data dan informasi header ke server, yang kemudian diproses oleh server untuk menghasilkan respons yang dikirimkan kembali ke klien. Dengan cara ini, JavaScript dapat mengirim permintaan tanpa harus menunggu respons, memungkinkan kelancaran jalannya tugas lainnya, dan tetap menjaga responsivitas halaman.
+<hr>
+
+### Pada PBP kali ini, penerapan AJAX dilakukan dengan menggunakan Fetch API daripada library jQuery. Bandingkanlah kedua teknologi tersebut dan tuliskan pendapat kamu teknologi manakah yang lebih baik untuk digunakan.
+Fetch API
+- Bagian standar JavaScript yang didukung oleh banyak browser dan mengadopsi pendekatan yang lebih baru.
+- Dirancang untuk kompatibilitas lintas browser dan lebih cocok untuk mendukung browser lama.
+- Mengembalikan objek Promise, memudahkan penggunaan async/await.
+jQuery
+- Fokus pada permintaan HTTP dan respons, tanpa banyak fitur tambahan, dan tidak memiliki ekosistem plugin yang besar.
+- Memiliki ekosistem yang luas dengan banyak plugin yang dapat memperluas fungsionalitas dan menghemat waktu.
+- Dapat memperkenalkan beberapa overhead dan pemrosesan tambahan yang dapat mempengaruhi kinerja dalam permintaan yang intensif.
+menurut saya penggunaan jQuery dan Fetch API sangat tergantung pada kebutuhan dan konteks proyek. Jika sudah menggunakan jQuery dan ingin menghindari menambahkan dependensi tambahan, penggunaan jQuery AJAX mungkin menjadi pilihan yang tepat. Jika mencari sintaks yang lebih modern dan fleksibel, maka gunakan Fetch API. Selain itu, jika proyek perlu mendukung browser yang lebih lama yang tidak mendukung Fetch API, maka penggunaan jQuery AJAX dengan kompatibilitas yang baik bisa menjadi pilihan yang masuk akal. 
+</details>
+
+<details>
 <summary>Tugas 5 </summary>
 
 Checklist untuk tugas ini adalah sebagai berikut.
