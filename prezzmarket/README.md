@@ -50,7 +50,42 @@
       ```
 - AJAX POST
    - Modal:
+      ```
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add New Item</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="form" onsubmit="return false;">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="name" class="col-form-label">Name:</label>
+                            <input type="text" class="form-control" id="name" name="name"></input>
+                        </div>
+                        <div class="mb-3">
+                            <label for="amount" class="col-form-label">Amount:</label>
+                            <input type="number" class="form-control" id="amount" name="amount"></input>
+                        </div>
+                        <div class="mb-3">
+                            <label for="description" class="col-form-label">Description:</label>
+                            <textarea class="form-control" id="description" name="description"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="button_add" data-bs-dismiss="modal">Add Item</button>
+                </div>
+            </div>
+        </div>
+      ```
    - Button untuk membuka modal:
+      ```
+         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Item by AJAX</button>
+      ```
    - Buatlah fungsi view baru untuk menambahkan item baru ke dalam basis data.
       - Buka ```views.py``` pada main dan tambahkan import ```from django.views.decorators.csrf import csrf_exempt``` dan tambahkan fungsi berikut:
          ```
@@ -74,6 +109,18 @@
          path('create-ajax/', add_product_ajax, name='add_product_ajax'),
          ```
    - Hubungkan form yang telah kamu buat di dalam modal kamu ke path /create-ajax/.
+      - Tambahkan kode berikut di ```main.html```
+         ```
+            function addItem() {
+            fetch("{% url 'main:add_item_ajax' %}", {
+                  method: "POST",
+                  body: new FormData(document.querySelector('#form'))
+            }).then(refreshProducts)
+
+            document.getElementById("form").reset()
+            return false
+         }
+         ```
 
    - Lakukan refresh pada halaman utama secara asinkronus untuk menampilkan daftar item terbaru tanpa reload halaman utama secara keseluruhan.
 - Melakukan perintah ```collecstatic```.
@@ -82,7 +129,7 @@
    STATIC_URL = 'static/'
    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
    ```
-   - Jalankan dengan perintah ```python3 manage.py collectstatic```
+   - Jalankan dengan perintah ```python manage.py collectstatic```
 <hr>
 
 ### Jelaskan perbedaan antara asynchronous programming dengan synchronous programming.

@@ -71,7 +71,7 @@
             margin-top: 20px;
             display: flex;
             justify-content: space-between;
-            width: 100%; /* Lebar maksimum untuk top-section */
+            width: 50%; /* Lebar maksimum untuk top-section */
             margin-bottom: 5px; 
         }
 
@@ -151,33 +151,51 @@
     <div class="top-section">
         <div class="top-section">
             <h2 class="item-count">Anda menyimpan {{ items.count }} item disini</h2>
-            <a href="{% url 'main:create_item'%}" class="add-button">Buat Item</a>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Item by AJAX</button>
         </div>
     </div>
 
     <div class="container">
-        {% for item in items %}
-            <div class="card {% if forloop.last %}last-card{% endif %}"data-id="{{ item.id }}">
-                <h2>{{ item.name }}</h2>
-                <p><strong>Jumlah:</strong> {{ item.amount }}</p>
-                <p><strong>Deskripsi:</strong> {{ item.description }}</p>
-                <div class="card-buttons">
-                    <div class="button-row">
-                        <a href="add_amount/{{ item.id }}" class="card-button">Tambah</a>
-                        <a href="decrement_amount/{{ item.id }}" class="card-button">Kurang</a>
-                    </div>
-                    <div class="button-row">
-                        <a href="edit_item/{{ item.id }}" class="card-button">Edit</a>
-                        <a href="delete_item/{{ item.id }}" class="card-button">Hapus</a>
-                    </div>
+        <div id="item_card"></div>
+    </div>`        
+    
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add New Item</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="form" onsubmit="return false;">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="name" class="col-form-label">Name:</label>
+                            <input type="text" class="form-control" id="name" name="name"></input>
+                        </div>
+                        <div class="mb-3">
+                            <label for="amount" class="col-form-label">Amount:</label>
+                            <input type="number" class="form-control" id="amount" name="amount"></input>
+                        </div>
+                        <div class="mb-3">
+                            <label for="description" class="col-form-label">Description:</label>
+                            <textarea class="form-control" id="description" name="description"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="button_add" data-bs-dismiss="modal">Add Item</button>
                 </div>
             </div>
-        {% endfor %}
+        </div>
     </div>
 
     <div class="last-login-text">
         Sesi terakhir login: {{ last_login }}
     </div>
+
     
 
 </body>
@@ -186,16 +204,39 @@
         return fetch("{% url 'main:get_item_json' %}").then((res) => res.json());
     }
 
-    async function deleteItem(id) {
+    async function deleteItems(id) {
         const response = await fetch(`/remove-item/${id}`);
         refreshItems();
+        updateSize()
     }
-    function addItem() {
+    
+    async function refreshItems() {
+        document.getElementById("item_card").innerHTML = ""
+        const items = await getItems()
+        let htmlString = ""
+        items.forEach((item) => {
+            htmlString += `
+                    <div class="card">
+                        <h2>${item.fields.name }</h2>
+                        <p><strong>Jumlah:</strong> ${ item.fields.amount }</p>
+                        <p><strong>Deskripsi:</strong> ${ item.fields.description }</p>
+                        
+                    </div>`
+            })
+            document.getElementById("item_card").innerHTML = htmlString
+    }
+                    
+    refreshItems()
+    async function addItem() {
         fetch("{% url 'main:add_item_ajax' %}", {
             method: "POST",
             body: new FormData(document.querySelector('#form'))
-        }).then(refreshProducts)
-
+        }).then(refreshItems)
+            const updatedItems = await getItems();
+            let newItemCount = updatedItems.length;
+            document.querySelector('.item-count').innerText = `Anda menyimpan ${newItemCount} item disini`;
+            document.getElementById("form").reset();
+            initialItemCount = newItemCount;
         document.getElementById("form").reset()
         return false
     }
